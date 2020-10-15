@@ -1,18 +1,14 @@
-const path = require('path');
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
-const publicPath = path.join(__dirname, '..', 'build');
+// designates server port and initiates dev server
+const PORT = process.env.PORT || 3001;
 
-const port = process.env.PORT || 3001;
+app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static("public"));
 
-app.use(express.static(publicPath));
-
-app.get('*', (req, res) => {
-   res.sendFile(path.join(publicPath, 'index.html'));
-});
-
-app.listen(port, () => {
-   console.log('Server is up!');
+app.listen(PORT, function() {
+  console.log(`listening on port ${PORT}`);
 });
